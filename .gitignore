@@ -1,0 +1,4 @@
+# BEGIN: /home/watashishun/ai/aipython/.gitignore
+config.py
+__pycache__/
+# END: /home/watashishun/ai/aipython/.gitignore

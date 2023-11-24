@@ -38,12 +38,13 @@ async def scrape_view(url):
 
 # output recommended dishes
 def summarize(reviews, model):
-    prompt = "I collect some reviews of a place I want to visit, can you recommend the top 5 dishes and list how many times each of which is mentioned?\
+    prompt = "I collect some reviews of a place I want to visit, can you output top 5 dishes in JSON format, along with the number of times they are mentioned in the comment?\
     the reviews are: \n"
+
+    print(prompt)
+
     for review in reviews:
         prompt = prompt + "\n" + review
-
-    #print(prompt)
     
     completion = palm.generate_text(
         model=model,
@@ -60,9 +61,9 @@ def summarize(reviews, model):
 palm.configure(api_key = config.API_KEY)
 models = [m for m in palm.list_models() if 'generateText' in m.supported_generation_methods]
 model = models[0].name
-print(model)
+print("model name:", model)
 
 reviews = asyncio.get_event_loop().run_until_complete(scrape_view(url))
-print(reviews)
+# print(reviews)
 
 summary = summarize(reviews, model)
